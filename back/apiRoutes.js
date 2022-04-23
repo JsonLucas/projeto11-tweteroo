@@ -1,22 +1,21 @@
 import bodyParser from "body-parser";
 let users = []
 let tweets = [];
+const link = {
+    http: 'http://',
+    https: 'https://'
+}
 export default function routes(app){
-    const link = {
-        http: 'http://',
-        https: 'https://'
-    }
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     app.post('/sign-up', (req, res) => {
         if((req.body.username === '') || 
-        (req.body.avatar === '') ||
-        (req.body.avatar.substring(0, 7) !== link.http) ||
-        (req.body.avatar.substring(0, 8) !== link.https)){
+        (req.body.avatar === '') || (
+        (req.body.avatar.substring(0, 7) !== link.http) &&
+        (req.body.avatar.substring(0, 8) !== link.https))){
             res.sendStatus(400);
         }else{
             users = [...users, req.body];
-            console.log(users);
             res.status(201).send('OK!');
         }
     });

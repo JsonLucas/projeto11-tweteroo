@@ -8,7 +8,7 @@ function signUp() {
     avatar: picture.value
   };
   axios.post("http://localhost:5000/sign-up", body).then(() => {
-    _username = username;
+    _username = username.value;
     loadTweets();
   }).catch(err => {
     if (err.response) {
@@ -39,10 +39,10 @@ function loadTweets() {
 }
 
 function postTweet() {
-  const tweet = document.querySelector("#tweet").value;
+  const tweet = document.querySelector("#tweet");
 
   axios.post("http://localhost:5000/tweets", {
-    tweet
+    tweet: tweet.value
   }, {
     headers: {
       'User': _username
@@ -53,7 +53,7 @@ function postTweet() {
       loadTweets();
     }
   }).catch(err => {
-    console.error(err);
+    tweet.value = '';
     if (err.response) {
       alert(err.response.data);
     }
@@ -71,7 +71,7 @@ function Tweet({ avatar, username, tweet }) {
           @${username}
         </div>
         <div class="body">
-          ${escapeHtml(tweet)}
+          ${tweet}
         </div>
       </div>
     </div>
