@@ -49,7 +49,7 @@ function postTweet() {
     }
   }).then((response) => {
     if (response.status === 201) {
-      document.querySelector("#tweet").value = "";
+      tweet.value = "";
       loadTweets();
     }
   }).catch(err => {

@@ -16,7 +16,7 @@ export default function routes(app){
             res.sendStatus(400);
         }else{
             users = [...users, req.body];
-            res.status(201).send('OK!');
+            res.status(201).send('Created');
         }
     });
     app.post('/tweets', (req, res) => {
